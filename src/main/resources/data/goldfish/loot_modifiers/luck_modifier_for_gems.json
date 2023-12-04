@@ -1,0 +1,10 @@
+{
+  "type": "goldfish:luck_modifier_for_gems",
+  "conditions": [],
+  "howManyPercentPerLuckLevel": 10,
+  "hintPt1": "set the howManyPercentPerLuckLevel to desired value. default is 10, meaning 10% chance. ",
+  "hintPt2": "for each level of luck currently on the player, there is that much of a chance to double any gem that the player mines (including modded gems). ",
+  "hintPt3": "so, for luck III (don't mine diamonds with less than that), there is 3x10% chance do duplicate each separate diamond. luck effect synergizes with fortune as fortune gives us more gems to potentially duplicate. ",
+  "hintPt4": "values over 100% are okay (technically, not in terms of balance); for example luck VII (level seven) and 40% in this file means 2 guaranteed extra gems plus 80% chance to get the third.",
+  "hintPt5": "oh, and global loot modifiers are annoying."
+}
