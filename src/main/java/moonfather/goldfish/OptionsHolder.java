@@ -25,7 +25,6 @@ public class OptionsHolder
 		{
 			builder.push("main");
 			this.FishChance = builder.comment("This is a multiplier for the default chance to pull a goldfish when reeling the fish in. Default value is around 4% which is 15x less common than cod, 6x less common than salmon and 2x more common than clownfish. This value multiplies that base chance. Value of 1.0 leaves it as described above, 0.5 halves the chance, 2.0 doubles it, 25 will cause you to pull pretty much nothing else. Zero means 0% chance. High values will noticeably increase your luck and anything it affects (see options below).")
-					.worldRestart()
 					.defineInRange("Goldfish chance modifier when fishing", defaultFishChance, 0, 50.0);
 			this.MaxLuckLevel = builder.comment("Max level of luck that can be active on the player. Affects fishing a little, gems and mob drops a lot. Default is 3. Values higher than 3 work fine, but the roman numeral may not be displayed (above the countdown timer).")
 					.defineInRange("Max level of luck effect", defaultMaxLuckLevel, 1, 10);

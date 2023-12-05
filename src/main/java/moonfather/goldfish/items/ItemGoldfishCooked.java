@@ -2,7 +2,6 @@ package moonfather.goldfish.items;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -20,7 +19,6 @@ public class ItemGoldfishCooked extends Item
 	public ItemGoldfishCooked()
 	{
 		super(new Properties()
-				.tab(CreativeModeTab.TAB_FOOD)
 				.food(new FoodProperties.Builder()
 						.nutrition(2)
 						.saturationMod(0.1f).build()
@@ -33,6 +31,6 @@ public class ItemGoldfishCooked extends Item
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> lines, TooltipFlag flag)
 	{
 		super.appendHoverText(stack, world, lines, flag);
-		lines.add(new TranslatableComponent("item.goldfish.goldfish_cooked.tooltip").withStyle(ChatFormatting.DARK_GRAY));
+		lines.add(Component.translatable("item.goldfish.goldfish_cooked.tooltip").withStyle(ChatFormatting.DARK_GRAY));
 	}
 }

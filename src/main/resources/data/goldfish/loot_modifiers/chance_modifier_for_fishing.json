@@ -1,7 +1,5 @@
 {
   "type": "goldfish:chance_modifier_for_fishing",
   "conditions": [],
-  "percentChanceToPullAGoldfish": 4,
-  "hintPt1": "set the howManyPercentPerLuckLevel to desired value. default is 4, meaning 4% chance. ",
-  "hintPt2": "for reference, in vanilla, codfish has a 60% chance, salmon 25%, pufferfish 13% and clownfish only 2%. "
+  "unused": 4
 }

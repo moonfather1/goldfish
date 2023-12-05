@@ -1,8 +1,8 @@
 package moonfather.goldfish.utility;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Material;
 
 import java.util.LinkedList;
 
@@ -15,8 +15,8 @@ public class PathFindingHelper
 	
 	
 	
-	private LinkedList<BlockPos> markedToExpand = new LinkedList<BlockPos>();
-	private LinkedList<BlockPos> markedAndDone = new LinkedList<BlockPos>();
+	private final LinkedList<BlockPos> markedToExpand = new LinkedList<BlockPos>();
+	private final LinkedList<BlockPos> markedAndDone = new LinkedList<BlockPos>();
 	public boolean IsPartOfASeriousBodyOfWaterInternal(Level world, BlockPos position)
 	{
 		//zaboravi//this.initializeValidTargets(12, 10, world, position);    if (this.targets.size() == 0) return false;
@@ -60,7 +60,7 @@ public class PathFindingHelper
 			return;
 		}
 		this.temp.set(x, y, z);
-		if (world.getBlockState(this.temp).getMaterial() == Material.WATER)
+		if (world.getFluidState(this.temp).is(FluidTags.WATER))
 		{
 			this.markedToExpand.addFirst(new BlockPos(x, y, z));
 		}
