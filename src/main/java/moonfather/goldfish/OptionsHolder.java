@@ -1,7 +1,6 @@
 package moonfather.goldfish;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class OptionsHolder
@@ -14,14 +13,14 @@ public class OptionsHolder
 		private static final boolean defaultDropExtraGemsFromOreBlocks = true;
 		private static final boolean defaultDropExtraLootFromMobs = true;
 
-		public final ConfigValue<Double> FishChance;
-		public final ConfigValue<Integer> MaxLuckLevel;
-		public final ConfigValue<Integer> LuckEffectDuration;
-		public final ConfigValue<Boolean> DropExtraGemsFromOreBlocks;
-		public final ConfigValue<Boolean> DropExtraLootFromMobs;
+		public final ModConfigSpec.ConfigValue<Double> FishChance;
+		public final ModConfigSpec.ConfigValue<Integer> MaxLuckLevel;
+		public final ModConfigSpec.ConfigValue<Integer> LuckEffectDuration;
+		public final ModConfigSpec.ConfigValue<Boolean> DropExtraGemsFromOreBlocks;
+		public final ModConfigSpec.ConfigValue<Boolean> DropExtraLootFromMobs;
 
 
-		public Common(ForgeConfigSpec.Builder builder)
+		public Common(ModConfigSpec.Builder builder)
 		{
 			builder.push("main");
 			this.FishChance = builder.comment("This is a multiplier for the default chance to pull a goldfish when reeling the fish in. Default value is around 4% which is 15x less common than cod, 6x less common than salmon and 2x more common than clownfish. This value multiplies that base chance. Value of 1.0 leaves it as described above, 0.5 halves the chance, 2.0 doubles it, 25 will cause you to pull pretty much nothing else. Zero means 0% chance. High values will noticeably increase your luck and anything it affects (see options below).")
@@ -40,11 +39,11 @@ public class OptionsHolder
 	}
 
 	public static final Common COMMON;
-	public static final ForgeConfigSpec COMMON_SPEC;
+	public static final ModConfigSpec COMMON_SPEC;
 
 	static //constructor
 	{
-		Pair<Common, ForgeConfigSpec> commonSpecPair = new ForgeConfigSpec.Builder().configure(Common::new);
+		Pair<Common, ModConfigSpec> commonSpecPair = new ModConfigSpec.Builder().configure(Common::new);
 		COMMON = commonSpecPair.getLeft();
 		COMMON_SPEC = commonSpecPair.getRight();
 	}

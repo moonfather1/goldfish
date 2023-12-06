@@ -1,9 +1,9 @@
 package moonfather.goldfish;
 
 import moonfather.goldfish.items.Repository;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 
 @Mod(ModGoldfish.MOD_ID)
 public class ModGoldfish
