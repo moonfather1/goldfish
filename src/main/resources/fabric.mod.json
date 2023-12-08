@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "goldfish",
+	"version": "${version}",
+	"name": "Goldfish",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"MoonFather"
+	],
+	"contact": {
+		"homepage": "https://legacy.curseforge.com/minecraft/mc-mods/goldfish-mythgold",
+		"sources": "https://github.com/moonfather1/goldfish/tree/neoforge_1.20"
+	},
+	"license": "MIT",
+	"icon": "assets/goldfish/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"moonfather.goldfish.Goldfish"
+		],
+		"client": [
+			"moonfather.goldfish.GoldfishClient"
+		]
+	},
+	"mixins": [
+		"goldfish.mixins.json",
+		{
+			"config": "goldfish.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": "~1.20.3",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

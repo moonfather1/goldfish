@@ -1,75 +1,75 @@
 package moonfather.goldfish;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 
 public class FishTossHandler
 {
 	public static void changeLuck(ItemEntity entityItem, boolean addLuck)
 	{
-		MobEffect potionToAdd, potionToRemove;
+		StatusEffect potionToAdd, potionToRemove;
 		if (addLuck)
 		{
-			potionToAdd = MobEffects.LUCK;
-			potionToRemove = MobEffects.UNLUCK;
+			potionToAdd = StatusEffects.LUCK;
+			potionToRemove = StatusEffects.UNLUCK;
 		}
 		else
 		{
-			potionToAdd = MobEffects.UNLUCK;
-			potionToRemove = MobEffects.LUCK;
+			potionToAdd = StatusEffects.UNLUCK;
+			potionToRemove = StatusEffects.LUCK;
 		}
 		//player
-		Player player = FishTossHandler.GetTossingPlayer(entityItem); if (player == null) return;
-		MobEffectInstance effect = player.getEffect(potionToAdd);
-		player.removeEffect(potionToRemove);
+		PlayerEntity player = FishTossHandler.GetTossingPlayer(entityItem); if (player == null) return;
+		StatusEffectInstance effect = player.getStatusEffect(potionToAdd);
+		player.removeStatusEffect(potionToRemove);
 		if (effect == null)
 		{
-			int level = Math.min(entityItem.getItem().getCount() - 1, OptionsHolder.COMMON.MaxLuckLevel.get() - 1); // zero based
-			effect = new MobEffectInstance(potionToAdd, OptionsHolder.COMMON.LuckEffectDuration.get(), level, true, false);
-			player.addEffect(effect);
+			int level = Math.min(entityItem.getStack().getCount() - 1, Goldfish.getConfig().MaxLuckLevel - 1); // zero based
+			effect = new StatusEffectInstance(potionToAdd, Goldfish.getConfig().LuckEffectDuration, level, true, false);
+			player.addStatusEffect(effect);
 		}
 		else
 		{
 			int level = effect.getAmplifier();
 			int time = effect.getDuration();
-			level = Math.min(level + entityItem.getItem().getCount(), OptionsHolder.COMMON.MaxLuckLevel.get() - 1); // zero based
-			time = (time + time + OptionsHolder.COMMON.LuckEffectDuration.get()) / 3;
-			effect = new MobEffectInstance(potionToAdd, time, level, true, false);
-			player.addEffect(effect);
+			level = Math.min(level + entityItem.getStack().getCount(), Goldfish.getConfig().MaxLuckLevel - 1); // zero based
+			time = (time + time + Goldfish.getConfig().LuckEffectDuration) / 3;
+			effect = new StatusEffectInstance(potionToAdd, time, level, true, false);
+			player.addStatusEffect(effect);
 		}
 	}
 
 
 
-	public static void showStupidParticles(ItemEntity entityItem, ParticleOptions particleType)
+	public static void showStupidParticles(ItemEntity entityItem, ParticleEffect particleType)
 	{
-		if (entityItem.level() instanceof ServerLevel)
+		if (entityItem.getWorld() instanceof ServerWorld)
 		{
 			double yPos = entityItem.getY();
-			if (entityItem.isInWater())
+			if (entityItem.isSubmergedInWater())
 			{
-				BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
-				pos.set(entityItem.blockPosition());
-				while (entityItem.level().getFluidState(pos).is(FluidTags.WATER))
+				BlockPos.Mutable pos = new BlockPos.Mutable();
+				pos.set(entityItem.getBlockPos());
+				while (entityItem.getWorld().getFluidState(pos).isIn(FluidTags.WATER))
 				{
 					pos.set(pos.getX(), pos.getY() + 1, pos.getZ());
 				}
 				yPos = pos.getY() - 0.3d;
 			}
-			ServerLevel world = (ServerLevel)entityItem.level();
+			ServerWorld world = (ServerWorld) entityItem.getWorld();
 			for (int i = 1; i <= 16; i++)
 			{
-				double xSpeed = (entityItem.level().random.nextFloat() - 0.5D) * 0.30D;
-				double ySpeed = (entityItem.level().random.nextFloat() + 0.1D) * 0.40D;
-				double zSpeed = (entityItem.level().random.nextFloat() - 0.5D) * 0.30D;
-				world.sendParticles( particleType, entityItem.getX() + xSpeed * 8, yPos + ySpeed * 4, entityItem.getZ() + zSpeed * 8, 1 /*numberOfParticles*/, xSpeed, 0.3 * ySpeed, zSpeed, 0.10d /*particleSpeed*/ /*, int... particleArguments*/);
+				double xSpeed = (world.random.nextFloat() - 0.5D) * 0.30D;
+				double ySpeed = (world.random.nextFloat() + 0.1D) * 0.40D;
+				double zSpeed = (world.random.nextFloat() - 0.5D) * 0.30D;
+				world.spawnParticles(particleType, entityItem.getX() + xSpeed * 8, yPos + ySpeed * 4, entityItem.getZ() + zSpeed * 8, 1 /*numberOfParticles*/, xSpeed, 0.3 * ySpeed, zSpeed, 0.10d /*particleSpeed*/ /*, int... particleArguments*/);
 			}
 		}
 		else
@@ -78,11 +78,11 @@ public class FishTossHandler
 		}
 	}
 
-	private static Player GetTossingPlayer(ItemEntity entityItem)
+	private static PlayerEntity GetTossingPlayer(ItemEntity entityItem)
 	{
-		if (entityItem.getOwner() instanceof Player p)
+		if (entityItem.getOwner() instanceof PlayerEntity p)
 		{
-			return p;
+			return p; // actually used to be more complicated than this
 		}
 		return null;
 	}
