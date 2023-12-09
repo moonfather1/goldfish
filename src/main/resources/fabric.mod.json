@@ -3,7 +3,7 @@
 	"id": "goldfish",
 	"version": "${version}",
 	"name": "Goldfish",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "With a bit of luck and trusty fishing rod, you can grab a cute goldfish! Then what? Will you release it, hoping for a boon or are you just a hungry dimwit?",
 	"authors": [
 		"MoonFather"
 	],
@@ -17,21 +17,14 @@
 	"entrypoints": {
 		"main": [
 			"moonfather.goldfish.Goldfish"
-		],
-		"client": [
-			"moonfather.goldfish.GoldfishClient"
 		]
 	},
 	"mixins": [
-		"goldfish.mixins.json",
-		{
-			"config": "goldfish.client.mixins.json",
-			"environment": "client"
-		}
+		"goldfish.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.0",
-		"minecraft": "~1.20.3",
+		"minecraft": "~1.20.4",
 		"java": ">=17",
 		"fabric-api": "*"
 	},
