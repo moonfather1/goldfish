@@ -24,7 +24,7 @@ public class Goldfish implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
-		LOGGER.info("Hello Fabric world!");
+		//LOGGER.info("Hello Fabric world! 703717");
 		getConfig(); // don't want it lazy. would have worked though.
 		Repository.init();
 	}

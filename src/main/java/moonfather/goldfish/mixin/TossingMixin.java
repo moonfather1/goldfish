@@ -1,7 +1,7 @@
 package moonfather.goldfish.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import moonfather.goldfish.items.GoldfishItemEntity;
+import moonfather.goldfish.items.entities.GoldfishItemEntity;
 import moonfather.goldfish.items.Repository;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;

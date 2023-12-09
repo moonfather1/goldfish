@@ -1,6 +1,6 @@
-package moonfather.goldfish.items;
+package moonfather.goldfish.items.entities;
 
-import moonfather.goldfish.FishTossHandler;
+import moonfather.goldfish.FishTossHelper;
 import moonfather.goldfish.utility.PathFindingHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -29,13 +29,13 @@ public class GoldfishItemEntity extends ItemEntity
 				{
 					if (this.isSubmergedInWater() && PathFindingHelper.IsPartOfASeriousBodyOfWater(this.getWorld(), this.getBlockPos()))
 					{
-						FishTossHandler.changeLuck(this, true);
-						FishTossHandler.showStupidParticles(this, ParticleTypes.NOTE);
+						FishTossHelper.changeLuck(this, true);
+						FishTossHelper.showStupidParticles(this, ParticleTypes.NOTE);
 					}
 					else
 					{
-						FishTossHandler.changeLuck(this, false);
-						FishTossHandler.showStupidParticles(this, ParticleTypes.ANGRY_VILLAGER);
+						FishTossHelper.changeLuck(this, false);
+						FishTossHelper.showStupidParticles(this, ParticleTypes.ANGRY_VILLAGER);
 					}
 					this.remove(Entity.RemovalReason.DISCARDED);
 				}

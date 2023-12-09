@@ -10,7 +10,7 @@ import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 
-public class FishTossHandler
+public class FishTossHelper
 {
 	public static void changeLuck(ItemEntity entityItem, boolean addLuck)
 	{
@@ -26,7 +26,7 @@ public class FishTossHandler
 			potionToRemove = StatusEffects.LUCK;
 		}
 		//player
-		PlayerEntity player = FishTossHandler.GetTossingPlayer(entityItem); if (player == null) return;
+		PlayerEntity player = FishTossHelper.GetTossingPlayer(entityItem); if (player == null) return;
 		StatusEffectInstance effect = player.getStatusEffect(potionToAdd);
 		player.removeStatusEffect(potionToRemove);
 		if (effect == null)
