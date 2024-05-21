@@ -8,15 +8,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 public class ItemGoldfishRaw extends Item
@@ -26,7 +24,7 @@ public class ItemGoldfishRaw extends Item
 		super(new Properties()
 				.food(new FoodProperties.Builder()
 						.nutrition(1)
-						.saturationMod(0.1f).build()
+						.saturationModifier(0.1f).build()
 				)
 		);
 	}
@@ -35,9 +33,10 @@ public class ItemGoldfishRaw extends Item
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> lines, TooltipFlag flag)
+	@ParametersAreNonnullByDefault
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> lines, TooltipFlag flag)
 	{
-		super.appendHoverText(stack, world, lines, flag);
+		super.appendHoverText(stack, context, lines, flag);
 		lines.add(Component.translatable("item.goldfish.goldfish_raw.tooltip").withStyle(ChatFormatting.DARK_GRAY));
 	}
 

@@ -1,9 +1,6 @@
 package moonfather.goldfish;
 
-import com.google.common.base.Suppliers;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.registries.Registries;
@@ -20,12 +17,15 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 import net.neoforged.neoforge.event.entity.living.LootingLevelEvent;
+import org.jetbrains.annotations.NotNull;
 
-@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.FORGE, modid = ModGoldfish.MOD_ID)
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@EventBusSubscriber(bus=EventBusSubscriber.Bus.GAME, modid = ModGoldfish.MOD_ID)
 public class EventHandlersForDrops
 {
 
@@ -38,12 +38,7 @@ public class EventHandlersForDrops
 		{
 			return;
 		}
-		if (event.getDamageSource() == null || !event.getDamageSource().getMsgId().equals("player") || !(event.getDamageSource().getEntity() instanceof Player))
-		{
-			return;
-		}
-		Player player = (Player)event.getDamageSource().getEntity();
-		if (player == null)
+		if (event.getDamageSource() == null || ! event.getDamageSource().getMsgId().equals("player") || ! (event.getDamageSource().getEntity() instanceof Player player))
 		{
 			return;
 		}
@@ -84,6 +79,8 @@ public class EventHandlersForDrops
 		}
 
 		@Override
+		@ParametersAreNonnullByDefault
+		@NotNull
 		public ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context)
 		{
 			if (OptionsHolder.COMMON.DropExtraGemsFromOreBlocks.get() == false)
@@ -102,7 +99,6 @@ public class EventHandlersForDrops
 				return generatedLoot;
 			}
 
-			TagKey<Item> gemTag = TagKey.create(Registries.ITEM, new ResourceLocation("forge","gems"));
 			float luckLevel = player.getLuck();
 			ObjectArrayList<ItemStack> ret = new ObjectArrayList<ItemStack>();
 			for (ItemStack drop : generatedLoot)
@@ -140,16 +136,18 @@ public class EventHandlersForDrops
 			}
 			return ret;
 		}
+		private static final TagKey<Item> gemTag = TagKey.create(Registries.ITEM, new ResourceLocation("c","gems"));
 
 
 
 		@Override
-		public Codec<? extends IGlobalLootModifier> codec() {
+		@NotNull
+		public MapCodec<? extends IGlobalLootModifier> codec() {
 			return CODEC;
 		}
 
-		public static final Codec<LuckBlockDropsModifier> CODEC =
-				RecordCodecBuilder.create(inst -> codecStart(inst)
+		public static final MapCodec<LuckBlockDropsModifier> CODEC =
+				RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
 						.and(ExtraCodecs.NON_NEGATIVE_INT.fieldOf("howManyPercentPerLuckLevel").forGetter((m) -> m.percentagePerLevel))
 						.apply(inst, LuckBlockDropsModifier::new));
 	}

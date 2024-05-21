@@ -1,6 +1,7 @@
 package moonfather.goldfish;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
@@ -14,7 +15,7 @@ public class FishTossHandler
 {
 	public static void changeLuck(ItemEntity entityItem, boolean addLuck)
 	{
-		MobEffect potionToAdd, potionToRemove;
+		Holder<MobEffect> potionToAdd, potionToRemove;
 		if (addLuck)
 		{
 			potionToAdd = MobEffects.LUCK;

@@ -3,7 +3,10 @@
   "ingredient": {
     "item": "goldfish:goldfish_raw"
   },
-  "result": "goldfish:goldfish_cooked",
+  "result": {
+    "id": "goldfish:goldfish_cooked"
+  },
+  "category": "food", 
   "experience": 0.4,
   "cookingtime": 600
 }

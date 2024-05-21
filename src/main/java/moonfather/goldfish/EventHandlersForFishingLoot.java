@@ -2,6 +2,7 @@ package moonfather.goldfish;
 
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moonfather.goldfish.items.Repository;
@@ -29,12 +30,12 @@ public class EventHandlersForFishingLoot
 		@Override
 		protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context)
 		{
-			if (context.getQueriedLootTableId().equals(BuiltInLootTables.FISHING))
+			if (context.getQueriedLootTableId().equals(BuiltInLootTables.FISHING.location()))
 			{
 				int percentageChance = (int) Math.round(4 * OptionsHolder.COMMON.FishChance.get()); // 4% is default
 				if (context.getLevel().random.nextInt(100) < percentageChance && generatedLoot.size() > 0)
 				{
-					if (generatedLoot.get(0).isEdible())
+					if (generatedLoot.get(0).getFoodProperties(null) != null)
 					{
 						generatedLoot.remove(0);
 						generatedLoot.add(new ItemStack(Repository.ItemFishRaw.get()));
@@ -49,12 +50,12 @@ public class EventHandlersForFishingLoot
 		private int unused;
 
 		@Override
-		public Codec<? extends IGlobalLootModifier> codec() {
+		public MapCodec<? extends IGlobalLootModifier> codec() {
 			return CODEC;
 		}
 
-		public static final Codec<FishingLootModifier> CODEC =
-				RecordCodecBuilder.create(inst -> codecStart(inst)
+		public static final MapCodec<FishingLootModifier> CODEC =
+				RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
 						.and(ExtraCodecs.NON_NEGATIVE_INT.fieldOf("unused").forGetter((m) -> m.unused))
 						.apply(inst, FishingLootModifier::new));
 	}

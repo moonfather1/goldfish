@@ -51,7 +51,7 @@ public class PathFindingHelper
 	
 	private void CheckBlock(Level world, int x, int y, int z)
 	{
-		if (y < 1 || y >= BuildHeight)
+		if (y <= world.getMinBuildHeight() || y >= world.getMaxBuildHeight())
 		{
 			return;
 		}
