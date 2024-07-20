@@ -4,6 +4,7 @@ import moonfather.goldfish.Goldfish;
 import moonfather.goldfish.items.Repository;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.ItemTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -22,7 +23,7 @@ public class FishingMixin
 		int percentageChance = (int) Math.round(4 * Goldfish.getConfig().FishChance); // 4% is default
 		if (ourRandom.nextInt(100) < percentageChance)
 		{
-			if (loot.isFood())
+			if (loot.isIn(ItemTags.FISHES))
 			{
 				return Repository.ItemFishRaw.getDefaultStack();
 			}

@@ -23,7 +23,7 @@ public class FortuneLevelMixin
         {
             return original;
         }
-        if (builder.get(LootContextParameters.THIS_ENTITY) instanceof PlayerEntity player && player.getLuck() != 0)
+        if (builder.getOptional(LootContextParameters.THIS_ENTITY) instanceof PlayerEntity player && player.getLuck() != 0)
         {
             return BlockFortuneLevelCalculator.goThroughDrops(original, player.getLuck(), player.getWorld().random);
         }

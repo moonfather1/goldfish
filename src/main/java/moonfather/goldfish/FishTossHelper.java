@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -14,7 +15,8 @@ public class FishTossHelper
 {
 	public static void changeLuck(ItemEntity entityItem, boolean addLuck)
 	{
-		StatusEffect potionToAdd, potionToRemove;
+		RegistryEntry<StatusEffect> potionToAdd;
+		RegistryEntry<StatusEffect> potionToRemove;
 		if (addLuck)
 		{
 			potionToAdd = StatusEffects.LUCK;

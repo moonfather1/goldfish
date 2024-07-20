@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class Goldfish implements ModInitializer
 {
 	public static final String MOD_ID = "goldfish";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	private static CommonConfig config = null;
 
 	public static CommonConfig getConfig()

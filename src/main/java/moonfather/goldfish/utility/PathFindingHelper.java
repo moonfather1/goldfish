@@ -1,7 +1,7 @@
 package moonfather.goldfish.utility;
 
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.world.World;
 
 import java.util.LinkedList;
@@ -38,11 +38,11 @@ public class PathFindingHelper
 			}
 			BlockPos current = this.markedToExpand.removeLast();
 			this.markedAndDone.addFirst(current);
-			this.CheckBlock(world, current.getX() - 1, current.getY(), current.getZ());
+			this.CheckBlock(world, current.getX(), current.getY() - 1, current.getZ());
 			this.CheckBlock(world, current.getX(), current.getY() + 1, current.getZ());
+			this.CheckBlock(world, current.getX() - 1, current.getY(), current.getZ());
 			this.CheckBlock(world, current.getX(), current.getY(), current.getZ() - 1);
 			this.CheckBlock(world, current.getX() + 1, current.getY(), current.getZ());
-			this.CheckBlock(world, current.getX(), current.getY() - 1, current.getZ());
 			this.CheckBlock(world, current.getX(), current.getY(), current.getZ() + 1);
 		}
 	}
@@ -51,7 +51,7 @@ public class PathFindingHelper
 	
 	private void CheckBlock(World world, int x, int y, int z)
 	{
-		if (y < 1 || y >= BuildHeight)
+		if (y <= world.getBottomY() || y >= world.getTopY())
 		{
 			return;
 		}
@@ -135,6 +135,5 @@ public class PathFindingHelper
 
 	*/
 
-	private final int BuildHeight = 320;
 	private final BlockPos.Mutable temp = new BlockPos.Mutable();
 }

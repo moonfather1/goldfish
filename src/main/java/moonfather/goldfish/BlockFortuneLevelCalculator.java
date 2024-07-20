@@ -14,7 +14,6 @@ public class BlockFortuneLevelCalculator
 {
     public static List<ItemStack> goThroughDrops(List<ItemStack> original, float luck, Random random)
     {
-        TagKey<Item> gemTag = TagKey.of(RegistryKeys.ITEM, new Identifier("c","gems"));
         int percentagePerLevel = Goldfish.getConfig().BlockFortunePercentagePerLevel;
         int count = original.size();
         for (int i = 0; i < count; i++)
@@ -50,6 +49,9 @@ public class BlockFortuneLevelCalculator
         }
         return  original;
     }
+    private static final TagKey<Item> gemTag = TagKey.of(RegistryKeys.ITEM, new Identifier("c","gems"));
+
+
 
     public static boolean disabled()
     {
