@@ -32,7 +32,7 @@ public class OptionsHolder
 
 			this.DropExtraGemsFromOreBlocks = builder.comment("Does luck affect block drops? If yes, every level of good luck increases gem yield (only works on diamonds, emeralds and similar stuff added by mods). Levels in bad luck, well, try it yourself if you are curious. The effect works together nicely with the fortune enchantment.")
 					.define("Drop extra gems from ore blocks", defaultDropExtraGemsFromOreBlocks);
-			this.DropExtraLootFromMobs = builder.comment("Does luck affect mob drops?  If yes, then effect levels 1 to 4 give a level*25% chance to get a +1 to looting level when killing a mob. Then, effect levels 5 to 8 give a (level-4)*25% chance to get another +1 to looting level when killing a mob (guaranteed for levels 8+). For example, if you have a sword with Looting III and Luck VI active, there is 50% chance for you to effectively kill mobs with Looting IV and 50% chance for you to effectively kill mobs with Looting V.")
+			this.DropExtraLootFromMobs = builder.comment("Does luck affect mob drops?  If yes, then positive luck increases chances of multiple different items dropped (so if a zombie would normally drop just flesh, luck may cause other things to drop (carrot, iron) but not another flesh piece).")
 					.define("Drop extra loot from mobs", defaultDropExtraLootFromMobs);
 			builder.pop();
 		}
