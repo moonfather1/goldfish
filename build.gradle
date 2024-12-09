@@ -121,12 +121,15 @@ configurations {
 }
 
 dependencies {
-	runtimeOnly "curse.maven:modest-flint-overhaul-783450:5548746"
-	runtimeOnly "curse.maven:through-the-lily-pads-gently-903017:5489436"
-	runtimeOnly "curse.maven:workshop-for-handsome-adventurer-875843:5486080"
-	runtimeOnly "curse.maven:wooden-tools-are-dumb-736942:5576216"
-	runtimeOnly "curse.maven:not-interested-980755:5453428"
-	runtimeOnly "curse.maven:cook-your-food-657757:5430988"
+	//runtimeOnly "curse.maven:modest-flint-overhaul-783450:5548746"
+	//runtimeOnly "curse.maven:through-the-lily-pads-gently-903017:5489436"
+	//runtimeOnly "curse.maven:workshop-for-handsome-adventurer-875843:5486080"
+	//runtimeOnly "curse.maven:wooden-tools-are-dumb-736942:5576216"
+	//runtimeOnly "curse.maven:not-interested-980755:5453428"
+	//runtimeOnly "curse.maven:cook-your-food-657757:5430988"
+	
+	implementation "curse.maven:tide-884685:5872289"
+    runtimeOnly "curse.maven:cloth-config-348521:5729127"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
