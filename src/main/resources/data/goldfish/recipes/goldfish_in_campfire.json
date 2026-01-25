@@ -1,12 +1,9 @@
 {
   "type": "minecraft:campfire_cooking",
-  "category": "food",
-  "cookingtime": 600,
-  "experience": 0.5,
   "ingredient": {
     "item": "goldfish:goldfish_raw"
   },
-  "result": {
-    "id": "goldfish:goldfish_cooked"
-  }
+  "result": "goldfish:goldfish_cooked",
+  "experience": 0.4,
+  "cookingtime": 600
 }
