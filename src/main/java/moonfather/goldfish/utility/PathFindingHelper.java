@@ -1,14 +1,15 @@
 package moonfather.goldfish.utility;
 
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.level.Level;
 
 import java.util.LinkedList;
 
 public class PathFindingHelper
 {
-	public static boolean IsPartOfASeriousBodyOfWater(World world, BlockPos position)
+	public static boolean IsPartOfASeriousBodyOfWater(Level world, BlockPos position)
 	{
 		return (new PathFindingHelper()).IsPartOfASeriousBodyOfWaterInternal(world, position);
 	}
@@ -17,7 +18,7 @@ public class PathFindingHelper
 	
 	private final LinkedList<BlockPos> markedToExpand = new LinkedList<BlockPos>();
 	private final LinkedList<BlockPos> markedAndDone = new LinkedList<BlockPos>();
-	public boolean IsPartOfASeriousBodyOfWaterInternal(World world, BlockPos position)
+	public boolean IsPartOfASeriousBodyOfWaterInternal(Level world, BlockPos position)
 	{
 		//zaboravi//this.initializeValidTargets(12, 10, world, position);    if (this.targets.size() == 0) return false;
 		this.markedToExpand.add(position);
@@ -38,20 +39,20 @@ public class PathFindingHelper
 			}
 			BlockPos current = this.markedToExpand.removeLast();
 			this.markedAndDone.addFirst(current);
-			this.CheckBlock(world, current.getX() - 1, current.getY(), current.getZ());
+			this.CheckBlock(world, current.getX(), current.getY() - 1, current.getZ());
 			this.CheckBlock(world, current.getX(), current.getY() + 1, current.getZ());
+			this.CheckBlock(world, current.getX() - 1, current.getY(), current.getZ());
 			this.CheckBlock(world, current.getX(), current.getY(), current.getZ() - 1);
 			this.CheckBlock(world, current.getX() + 1, current.getY(), current.getZ());
-			this.CheckBlock(world, current.getX(), current.getY() - 1, current.getZ());
 			this.CheckBlock(world, current.getX(), current.getY(), current.getZ() + 1);
 		}
 	}
 	
 	
 	
-	private void CheckBlock(World world, int x, int y, int z)
+	private void CheckBlock(Level world, int x, int y, int z)
 	{
-		if (y < 1 || y >= BuildHeight)
+		if (y <= world.getMinBuildHeight() || y >= world.getMaxBuildHeight())
 		{
 			return;
 		}
@@ -60,7 +61,7 @@ public class PathFindingHelper
 			return;
 		}
 		this.temp.set(x, y, z);
-		if (world.getFluidState(this.temp).isIn(FluidTags.WATER))
+		if (world.getFluidState(this.temp).is(FluidTags.WATER))
 		{
 			this.markedToExpand.addFirst(new BlockPos(x, y, z));
 		}
@@ -135,6 +136,5 @@ public class PathFindingHelper
 
 	*/
 
-	private final int BuildHeight = 320;
-	private final BlockPos.Mutable temp = new BlockPos.Mutable();
+	private final BlockPos.MutableBlockPos temp = new BlockPos.MutableBlockPos();
 }

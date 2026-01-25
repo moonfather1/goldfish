@@ -3,5 +3,9 @@
 	"item.goldfish.goldfish_cooked": "Грилована златна рибица",
 	
 	"item.goldfish.goldfish_raw.tooltip": "Као да хоће нешто да ти каже...",
-	"item.goldfish.goldfish_cooked.tooltip": "Неки људи мисле само на своје стомаке."
+	"item.goldfish.goldfish_cooked.tooltip": "Неки људи мисле само на своје стомаке.",
+
+          "item.starcatcher.goldfish_raw" : "Златна рибица",
+          "tooltip.starcatcher.goldfish_raw.0" : "A small and beautiful fish. Legends say it brings",
+          "tooltip.starcatcher.goldfish_raw.1" : "good fortune, although details are unclear."
 }

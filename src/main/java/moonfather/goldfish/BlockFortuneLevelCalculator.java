@@ -1,20 +1,19 @@
 package moonfather.goldfish;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.*;
 
 public class BlockFortuneLevelCalculator
 {
-    public static List<ItemStack> goThroughDrops(List<ItemStack> original, float luck, Random random)
+    public static List<ItemStack> goThroughDrops(List<ItemStack> original, float luck, RandomSource random)
     {
-        TagKey<Item> gemTag = TagKey.of(RegistryKeys.ITEM, new Identifier("c","gems"));
         int percentagePerLevel = Goldfish.getConfig().BlockFortunePercentagePerLevel;
         int count = original.size();
         for (int i = 0; i < count; i++)
@@ -24,7 +23,7 @@ public class BlockFortuneLevelCalculator
             {
                 continue;
             }
-            if (drop.isIn(gemTag))
+            if (drop.is(gemTag))
             {
                 double chance = Math.abs(luck) * Math.pow(1.1D,  Math.abs(luck)) * percentagePerLevel;
                 if (luck > 0)
@@ -50,6 +49,9 @@ public class BlockFortuneLevelCalculator
         }
         return  original;
     }
+    private static final TagKey<Item> gemTag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c","gems"));
+
+
 
     public static boolean disabled()
     {

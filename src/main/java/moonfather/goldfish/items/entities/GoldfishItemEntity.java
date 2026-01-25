@@ -2,15 +2,15 @@ package moonfather.goldfish.items.entities;
 
 import moonfather.goldfish.FishTossHelper;
 import moonfather.goldfish.utility.PathFindingHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class GoldfishItemEntity extends ItemEntity
 {
-    public GoldfishItemEntity(World world, double x, double y, double z, ItemStack stack)
+    public GoldfishItemEntity(Level world, double x, double y, double z, ItemStack stack)
     {
         super(world, x, y, z, stack);
     }
@@ -21,13 +21,13 @@ public class GoldfishItemEntity extends ItemEntity
     public void tick()
     {
         super.tick();
-        if (! this.getWorld().isClient())
+        if (! this.level().isClientSide())
 		{
-			if (this.isAlive() && this.age % 40 == 0)
+			if (this.isAlive() && this.getAge() % 40 == 0)
 			{
-				if (Math.abs(this.movementMultiplier.x) < 2e-2 && Math.abs(this.movementMultiplier.y) < 15e-2 && Math.abs(this.movementMultiplier.z) < 2e-2)
+				if (Math.abs(this.getDeltaMovement().x) < 2e-2 && Math.abs(this.getDeltaMovement().y) < 15e-2 && Math.abs(this.getDeltaMovement().z) < 2e-2)
 				{
-					if (this.isSubmergedInWater() && PathFindingHelper.IsPartOfASeriousBodyOfWater(this.getWorld(), this.getBlockPos()))
+					if (this.isInWaterOrBubble() && PathFindingHelper.IsPartOfASeriousBodyOfWater(this.level(), this.blockPosition()))
 					{
 						FishTossHelper.changeLuck(this, true);
 						FishTossHelper.showStupidParticles(this, ParticleTypes.NOTE);

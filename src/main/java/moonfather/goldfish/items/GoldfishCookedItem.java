@@ -1,13 +1,11 @@
 package moonfather.goldfish.items;
 
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
@@ -15,18 +13,19 @@ public class GoldfishCookedItem extends Item
 {
 	public GoldfishCookedItem()
 	{
-		super(new Settings()
-				.food(new FoodComponent.Builder()
-						.hunger(2)
-						.saturationModifier(0.1f).build()
+		super(new Properties()
+				.food(new FoodProperties.Builder()
+						.nutrition(2)
+						.saturationModifier(0.1f)
+						.build()
 				)
 		);
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> lines, TooltipContext flag)
+	public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag)
 	{
-		super.appendTooltip(stack, world, lines, flag);
-		lines.add(Text.translatable("item.goldfish.goldfish_cooked.tooltip").formatted(Formatting.DARK_GRAY));
+		super.appendHoverText(itemStack, tooltipContext, list, tooltipFlag);
+		list.add(Component.translatable("item.goldfish.goldfish_cooked.tooltip").withStyle(ChatFormatting.DARK_GRAY));
 	}
 }
