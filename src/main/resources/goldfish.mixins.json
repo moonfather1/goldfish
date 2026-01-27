@@ -5,7 +5,6 @@
   "mixins": [
     "FishingMixin",
     "FortuneLevelMixin",
-    "integration.TideFishingMixin",
     "LootingLevelMixin",
     "TossingMixin"
   ],

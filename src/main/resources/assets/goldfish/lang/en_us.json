@@ -5,7 +5,9 @@
 	"item.goldfish.goldfish_raw.tooltip": "Feels like it's trying to tell you something...",
 	"item.goldfish.goldfish_cooked.tooltip": "Some people only care about their bellies.",
 
-          "item.starcatcher.goldfish_raw" : "Goldfish",
-          "tooltip.starcatcher.goldfish_raw.0" : "A small and beautiful fish. Legends say it brings",
-          "tooltip.starcatcher.goldfish_raw.1" : "good fortune, although details are unclear."
+    "item.starcatcher.goldfish_raw" : "Goldfish",
+	"tooltip.starcatcher.goldfish_raw.0" : "A small and beautiful fish. Legends say it brings",
+    "tooltip.starcatcher.goldfish_raw.1" : "good fortune, although details are unclear.",
+
+	"journal.description.goldfish.goldfish": "A small and beautiful fish. Legends say it brings, good fortune, although details are unclear."
 }

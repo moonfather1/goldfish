@@ -6,6 +6,8 @@
 	"item.goldfish.goldfish_cooked.tooltip": "Неки људи мисле само на своје стомаке.",
 
           "item.starcatcher.goldfish_raw" : "Златна рибица",
-          "tooltip.starcatcher.goldfish_raw.0" : "A small and beautiful fish. Legends say it brings",
-          "tooltip.starcatcher.goldfish_raw.1" : "good fortune, although details are unclear."
+          "tooltip.starcatcher.goldfish_raw.0" : "Лепа рибица. Легенде кажу да доноси ",
+          "tooltip.starcatcher.goldfish_raw.1" : "срећу, мада детаљи нису јасни.",
+
+	"journal.description.goldfish.goldfish": "Лепа рибица. Легенде кажу да доноси срећу, мада детаљи нису јасни."
 }
