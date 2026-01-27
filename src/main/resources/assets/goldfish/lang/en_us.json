@@ -7,5 +7,8 @@
 
           "item.starcatcher.goldfish_raw" : "Goldfish",
           "tooltip.starcatcher.goldfish_raw.0" : "A small and beautiful fish. Legends say it brings",
-          "tooltip.starcatcher.goldfish_raw.1" : "good fortune, although details are unclear."
+          "tooltip.starcatcher.goldfish_raw.1" : "good fortune, although details are unclear.",
+
+	"journal.description.goldfish.goldfish": "A small and beautiful fish. Legends say it brings, good fortune, although details are unclear.",
+	"journal.info.location.cherry_grove_or_rivers": "Cherry grove or rivers"
 }
