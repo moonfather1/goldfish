@@ -5,40 +5,37 @@ import moonfather.goldfish.utility.PathFindingHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
+import net.minecraft.world.item.component.TooltipDisplay;
+import java.util.function.Consumer;
 
 public class ItemGoldfishRaw extends Item
 {
-	public ItemGoldfishRaw()
+	public ItemGoldfishRaw(ResourceKey<Item> key)
 	{
 		super(new Properties()
 				.food(new FoodProperties.Builder()
 						.nutrition(1)
 						.saturationModifier(0.1f).build()
 				)
+				.setId(key)
 		);
 	}
 
 
-
-	@OnlyIn(Dist.CLIENT)
 	@Override
-	@ParametersAreNonnullByDefault
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> lines, TooltipFlag flag)
+	public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag)
 	{
-		super.appendHoverText(stack, context, lines, flag);
-		lines.add(Component.translatable("item.goldfish.goldfish_raw.tooltip").withStyle(ChatFormatting.DARK_GRAY));
+		super.appendHoverText(itemStack, context, display, builder, tooltipFlag);
+		builder.accept(lore);
 	}
+	private static final Component lore = Component.translatable("item.goldfish.goldfish_raw.tooltip").withStyle(ChatFormatting.DARK_GRAY);
 
 
 

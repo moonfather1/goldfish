@@ -1,19 +1,27 @@
 package moonfather.goldfish;
 
 import moonfather.goldfish.items.Repository;
+
+import org.slf4j.Logger;
+import com.mojang.logging.LogUtils;
+
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.ModContainer;
 
-@Mod(ModGoldfish.MOD_ID)
+@Mod(ModGoldfish.MODID)
 public class ModGoldfish
 {
-    public static final String MOD_ID = "goldfish";
+    public static final String MODID = "goldfish";
+    public static final Logger LOGGER = LogUtils.getLogger();
 
-    public ModGoldfish(IEventBus modBus, ModContainer modContainer)
+
+
+    public ModGoldfish(IEventBus modEventBus, ModContainer modContainer)
     {
-        modContainer.registerConfig(ModConfig.Type.COMMON, OptionsHolder.COMMON_SPEC);
-        Repository.Init(modBus);
+        Repository.Init(modEventBus);
+        modEventBus.addListener(Repository::OnTabContents);
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
-}//net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction
+}

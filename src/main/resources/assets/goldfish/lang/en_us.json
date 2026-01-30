@@ -10,5 +10,14 @@
           "tooltip.starcatcher.goldfish_raw.1" : "good fortune, although details are unclear.",
 
 	"journal.description.goldfish.goldfish": "A small and beautiful fish. Legends say it brings, good fortune, although details are unclear.",
-	"journal.info.location.cherry_grove_or_rivers": "Cherry grove or rivers"
+	"journal.info.location.cherry_grove_or_rivers": "Cherry grove or rivers",
+
+  "goldfish.configuration.title": "Goldfish mod config",
+  "goldfish.configuration.section.goldfish.common.toml": "Goldfish mod config",
+  "goldfish.configuration.section.goldfish.common.toml.title": "Configure the mod:",
+  "goldfish.configuration.Goldfish chance modifier when fishing": "Goldfish chance modifier when fishing",
+  "goldfish.configuration.Max level of luck effect": "Max level of luck effect",
+  "goldfish.configuration.Luck effect duration": "Luck effect duration",
+  "goldfish.configuration.Max level of luck effect3": "Max level of luck effect",
+  "goldfish.configuration.Max level of luck effect4": "Max level of luck effect"
 }

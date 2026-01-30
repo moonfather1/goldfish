@@ -3,13 +3,15 @@ package moonfather.goldfish;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import moonfather.goldfish.mixin.EntityAccessor;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -30,33 +32,42 @@ import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Optional;
 
-@EventBusSubscriber(bus=EventBusSubscriber.Bus.GAME, modid = ModGoldfish.MOD_ID)
+@EventBusSubscriber
 public class EventHandlersForDrops
 {
 
-	
-	
 	@SubscribeEvent
 	public static void OnLootingLevel(LivingDropsEvent event)
 	{
-		if (OptionsHolder.COMMON.DropExtraLootFromMobs.get() == false)
+		if (Config.DropExtraLootFromMobs.get() == false)
 		{
 			return;
 		}
-		if (event.getEntity().lastHurtByPlayer == null || event.getEntity().getLootTable() == null)
+		if (event.getEntity().getLootTable().isEmpty())
 		{
 			return;
 		}
-		Player player = event.getEntity().lastHurtByPlayer;
+		EntityReference<Player> playerRef = ((EntityAccessor) event.getEntity()).fish$getLastHurtByPlayer();
+		if (playerRef == null)
+		{
+			return;
+		}
+		Player player = playerRef.getEntity(event.getEntity().level(), Player.class);
+		if (player == null)
+		{
+			return;
+		}
 		float luck = player.getLuck();
 		if (luck <= 0)
 		{
 			return;
 		}
 		// copied from dropFromLootTable
-		ResourceKey<LootTable> resourceKey = event.getEntity().getLootTable();
-		LootTable loottable = event.getEntity().level().getServer().reloadableRegistries().getLootTable(resourceKey);
+		Optional<ResourceKey<LootTable>> resourceKey = event.getEntity().getLootTable();
+		if (resourceKey.isEmpty()) { return; }
+		LootTable loottable = event.getEntity().level().getServer().reloadableRegistries().getLootTable(resourceKey.get());
 		net.minecraft.world.level.storage.loot.LootParams.Builder lootparams$builder = (new net.minecraft.world.level.storage.loot.LootParams.Builder((ServerLevel)event.getEntity().level()))
 				.withParameter(LootContextParams.THIS_ENTITY, event.getEntity())
 				.withParameter(LootContextParams.ORIGIN, event.getEntity().position())
@@ -77,7 +88,7 @@ public class EventHandlersForDrops
 
 	public static class LuckBlockDropsModifier extends LootModifier
 	{
-		private int percentagePerLevel = 10;
+		private int percentagePerLevel = 12;
 
 		public LuckBlockDropsModifier(LootItemCondition[] conditionsIn, Integer percentagePerLevel)
 		{
@@ -90,12 +101,12 @@ public class EventHandlersForDrops
 		@NotNull
 		public ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context)
 		{
-			if (OptionsHolder.COMMON.DropExtraGemsFromOreBlocks.get() == false)
+			if (Config.DropExtraGemsFromOreBlocks.get() == false)
 			{
 				return generatedLoot;
 			}
-			BlockState block = context.getParamOrNull(LootContextParams.BLOCK_STATE);
-			Entity playerHopefully = context.getParamOrNull(LootContextParams.THIS_ENTITY);
+			BlockState block = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
+			Entity playerHopefully = context.getOptionalParameter(LootContextParams.THIS_ENTITY);
 			Player player = (playerHopefully instanceof Player) ? (Player)playerHopefully : null;
 			if (block == null || player == null)
 			{
@@ -125,14 +136,14 @@ public class EventHandlersForDrops
 							chance = chance - 100;
 							ret.add(drop.copy());
 						}
-						if (chance >= player.level().random.nextInt(100))
+						if (chance >= player.level().getRandom().nextInt(100))
 						{
 							ret.add(drop.copy());
 						}
 					}
 					else
 					{
-						if (chance >= player.level().random.nextInt(100))
+						if (chance >= player.level().getRandom().nextInt(100))
 						{
 							ret.add(new ItemStack(Items.COAL, drop.getCount()));
 							continue;
@@ -143,7 +154,7 @@ public class EventHandlersForDrops
 			}
 			return ret;
 		}
-		private static final TagKey<Item> gemTag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c","gems"));
+		private static final TagKey<Item> gemTag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c","gems"));
 
 
 

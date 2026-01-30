@@ -1,9 +1,8 @@
 plugins {
     id 'java-library'
-    id 'eclipse'
-    id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '1.0.14'
+    id 'net.neoforged.moddev' version '2.0.140'
+    id 'idea'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -19,31 +18,19 @@ version = mod_version
 group = mod_group_id
 
 repositories {
-    mavenLocal()
-	
-	maven {
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    } 
+    // Add here additional repositories if required by some of the dependencies below.
 }
 
 base {
     archivesName = mod_id
 }
 
-// Mojang ships Java 21 to end users starting in 1.20.5, so mods should target Java 21.
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+// Mojang ships Java 21 to end users in 1.21.11, so mods should target Java 21.
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
     // Specify the version of NeoForge to use.
     version = project.neo_version
-
-    parchment {
-        mappingsVersion = project.parchment_mappings_version
-        minecraftVersion = project.parchment_minecraft_version
-    }
 
     // This line is optional. Access Transformers are automatically detected
     // accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
@@ -73,7 +60,7 @@ neoForge {
         }
 
         data {
-            data()
+            clientData()
 
             // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
             // gameDirectory = project.file('run-data')
@@ -101,8 +88,7 @@ neoForge {
     mods {
         // define mod <-> source bindings
         // these are used to tell the game which sources are for which mod
-        // mostly optional in a single mod project
-        // but multi mod projects should define one per mod
+        // multi mod projects should define one per mod
         "${mod_id}" {
             sourceSet(sourceSets.main)
         }
@@ -121,41 +107,51 @@ configurations {
 }
 
 dependencies {
-	//runtimeOnly "curse.maven:modest-flint-overhaul-783450:5548746"
-	//runtimeOnly "curse.maven:through-the-lily-pads-gently-903017:5489436"
-	//runtimeOnly "curse.maven:workshop-for-handsome-adventurer-875843:5486080"
-	//runtimeOnly "curse.maven:wooden-tools-are-dumb-736942:5576216"
-	//runtimeOnly "curse.maven:not-interested-980755:5453428"
-	//runtimeOnly "curse.maven:cook-your-food-657757:5430988"
-	
-	implementation "curse.maven:tide-884685:5872289"
-    runtimeOnly "curse.maven:cloth-config-348521:5729127"
+    // Example optional mod dependency with JEI
+    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
+    // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
+    // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
+    // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
+    // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+
+    // Example mod dependency using a mod jar from ./libs with a flat dir repository
+    // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
+    // The group id is ignored when searching -- in this case, it is "blank"
+    // implementation "blank:coolmod-${mc_version}:${coolmod_version}"
+
+    // Example mod dependency using a file as dependency
+    // implementation files("libs/coolmod-${mc_version}-${coolmod_version}.jar")
+
+    // Example project dependency using a sister or child project:
+    // implementation project(":myproject")
+
+    // For more info:
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
-// When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
-// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
-tasks.withType(ProcessResources).configureEach {
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
             neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
-            loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
             mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description
     ]
     inputs.properties replaceProperties
-
-    filesMatching(['META-INF/neoforge.mods.toml']) {
-        expand replaceProperties
-    }
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
 }
+// Include the output of "generateModMetadata" as an input directory for the build
+// this works with both building through Gradle and the IDE.
+sourceSets.main.resources.srcDir generateModMetadata
+// To avoid having to run "generateModMetadata" manually, make it run on every project reload
+neoForge.ideSyncTask generateModMetadata
 
 // Example configuration to allow publishing using the maven-publish plugin
 publishing {
