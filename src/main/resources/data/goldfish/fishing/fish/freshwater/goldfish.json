@@ -1,0 +1,20 @@
+{
+    "fish": "goldfish:goldfish_raw",
+    "journal_profile": {
+        "description": "journal.description.goldfish.goldfish",
+        "group": "freshwater",
+        "location": "journal.info.location.cherry_grove_or_rivers",
+        "rarity": "uncommon"
+    },
+    "conditions": [
+        { "type": "tide:freshwater" },
+        { "type": "tide:dimension", "dimensions": ["minecraft:overworld"] },
+        { "type": "tide:fluid", "fluid": "water" },
+        { "type": "tide:above", "y": 40 },
+        { "type": "tide:found_in", "biomes": ["#tide:has_cherry_grove_fish", "environmental:blossom_woods", "environmental:blossom_valleys", "#minecraft:is_river"] }
+    ],
+    "selection_weight": 9.5,
+    "size": { "record_high_cm": 25.0, "typical_high_cm": 15.0, "typical_low_cm": 10.0 },
+    "speed": 1.0,
+    "strength": 0.3
+}
