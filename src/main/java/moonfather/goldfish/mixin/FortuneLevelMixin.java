@@ -26,9 +26,8 @@ public class FortuneLevelMixin
         }
         if (builder.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player player && player.getLuck() != 0)
         {
-            return BlockFortuneLevelCalculator.goThroughDrops(original, player.getLuck(), player.level().random);
+            return BlockFortuneLevelCalculator.goThroughDrops(original, player.getLuck(), player.level().getRandom());
         }
-        Block b;
         return original;
     }
 }

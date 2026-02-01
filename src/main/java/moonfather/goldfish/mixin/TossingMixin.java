@@ -3,15 +3,16 @@ package moonfather.goldfish.mixin;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import moonfather.goldfish.items.entities.GoldfishItemEntity;
 import moonfather.goldfish.items.Repository;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(Player.class)
+@Mixin(LivingEntity.class)
 public class TossingMixin
 {
-    @ModifyExpressionValue(method = "drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;", at = @At(value = "NEW", target = "Lnet/minecraft/world/entity/item/ItemEntity;"))
+    @ModifyExpressionValue(method = "createItemStackToDrop", at = @At(value = "NEW", target = "Lnet/minecraft/world/entity/item/ItemEntity;"))
     private ItemEntity substituteOurEntity(ItemEntity original/*, World world, double x, double y, double z, ItemStack stack*/)
     {
         if (original.getItem().is(Repository.ItemFishRaw))

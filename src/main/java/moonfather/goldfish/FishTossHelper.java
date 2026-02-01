@@ -55,7 +55,7 @@ public class FishTossHelper
 		if (entityItem.level() instanceof ServerLevel)
 		{
 			double yPos = entityItem.getY();
-			if (entityItem.isInWaterOrBubble())
+			if (entityItem.isInWater())
 			{
 				BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 				pos.set(entityItem.blockPosition());
@@ -68,9 +68,9 @@ public class FishTossHelper
 			ServerLevel world = (ServerLevel) entityItem.level();
 			for (int i = 1; i <= 16; i++)
 			{
-				double xSpeed = (world.random.nextFloat() - 0.5D) * 0.30D;
-				double ySpeed = (world.random.nextFloat() + 0.1D) * 0.40D;
-				double zSpeed = (world.random.nextFloat() - 0.5D) * 0.30D;
+				double xSpeed = (world.getRandom().nextFloat() - 0.5D) * 0.30D;
+				double ySpeed = (world.getRandom().nextFloat() + 0.1D) * 0.40D;
+				double zSpeed = (world.getRandom().nextFloat() - 0.5D) * 0.30D;
 				world.sendParticles(particleType, entityItem.getX() + xSpeed * 8, yPos + ySpeed * 4, entityItem.getZ() + zSpeed * 8, 1 /*numberOfParticles*/, xSpeed, 0.3 * ySpeed, zSpeed, 0.10d /*particleSpeed*/ /*, int... particleArguments*/);
 			}
 		}

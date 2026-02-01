@@ -27,7 +27,7 @@ public class GoldfishItemEntity extends ItemEntity
 			{
 				if (Math.abs(this.getDeltaMovement().x) < 2e-2 && Math.abs(this.getDeltaMovement().y) < 15e-2 && Math.abs(this.getDeltaMovement().z) < 2e-2)
 				{
-					if (this.isInWaterOrBubble() && PathFindingHelper.IsPartOfASeriousBodyOfWater(this.level(), this.blockPosition()))
+					if (this.isInWater() && PathFindingHelper.IsPartOfASeriousBodyOfWater(this.level(), this.blockPosition()))
 					{
 						FishTossHelper.changeLuck(this, true);
 						FishTossHelper.showStupidParticles(this, ParticleTypes.NOTE);

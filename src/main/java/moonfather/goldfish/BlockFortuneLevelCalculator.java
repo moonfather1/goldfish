@@ -1,7 +1,7 @@
 package moonfather.goldfish;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
@@ -49,7 +49,7 @@ public class BlockFortuneLevelCalculator
         }
         return  original;
     }
-    private static final TagKey<Item> gemTag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c","gems"));
+    private static final TagKey<Item> gemTag = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c","gems"));
 
 
 

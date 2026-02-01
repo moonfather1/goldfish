@@ -2,10 +2,8 @@
   "type": "minecraft:smoking",
   "category": "food",
   "cookingtime": 100,
-  "experience": 0.5,
-  "ingredient": {
-    "item": "goldfish:goldfish_raw"
-  },
+  "experience": 1,
+  "ingredient": "goldfish:goldfish_raw",
   "result": {
     "id": "goldfish:goldfish_cooked"
   }

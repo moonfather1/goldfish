@@ -29,12 +29,12 @@ public class LootingLevelCalculator
         luck = Math.abs(luck);
         int result = 0;
 
-        if (player.level().random.nextInt(4) < luck)
+        if (player.level().getRandom().nextInt(4) < luck)
         {
             result += bonus;  // 25%*level chance for +1
         }
         luck = luck - 4;  //5to8 moved to 1to4
-        if (player.level().random.nextInt(4) < luck)
+        if (player.level().getRandom().nextInt(4) < luck)
         {
             result += bonus; // 25%*(level-4) chance for another +1
         }
