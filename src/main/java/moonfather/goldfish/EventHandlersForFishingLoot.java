@@ -18,9 +18,9 @@ public class EventHandlersForFishingLoot
 {
 	public static class FishingLootModifier extends LootModifier
 	{
-		public FishingLootModifier(LootItemCondition[] conditionsIn, Integer u)
+		public FishingLootModifier(LootItemCondition[] conditionsIn, int prio, Integer u)
 		{
-			super(conditionsIn);
+			super(conditionsIn, prio);
 		}
 
 
@@ -36,7 +36,7 @@ public class EventHandlersForFishingLoot
 				baseChance = 4; // 4 percent
 			}
 			else { return generatedLoot; }
-			// sup[port for tide 1 removed here. see 1.21.1.    tide 2 handled in data files.
+			// support for tide 1 removed here. see 1.21.1.    tide 2 handled in data files.
 			int percentageChance = (int) Math.round(baseChance * Config.FishChance.get()); // 4% is default
 			if (context.getLevel().getRandom().nextInt(100) < percentageChance)
 			{

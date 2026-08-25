@@ -90,9 +90,9 @@ public class EventHandlersForDrops
 	{
 		private int percentagePerLevel = 12;
 
-		public LuckBlockDropsModifier(LootItemCondition[] conditionsIn, Integer percentagePerLevel)
+		public LuckBlockDropsModifier(LootItemCondition[] conditionsIn, int priority, Integer percentagePerLevel)
 		{
-			super(conditionsIn);
+			super(conditionsIn, priority);
 			this.percentagePerLevel = percentagePerLevel;
 		}
 
@@ -107,8 +107,7 @@ public class EventHandlersForDrops
 			}
 			BlockState block = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
 			Entity playerHopefully = context.getOptionalParameter(LootContextParams.THIS_ENTITY);
-			Player player = (playerHopefully instanceof Player) ? (Player)playerHopefully : null;
-			if (block == null || player == null)
+			if (block == null || ! (playerHopefully instanceof Player player))
 			{
 				return generatedLoot;
 			}
