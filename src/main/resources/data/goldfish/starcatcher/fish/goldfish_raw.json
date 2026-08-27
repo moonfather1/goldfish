@@ -15,6 +15,7 @@
   "daytime": "all",
   "difficulty": {
     "decay": 1.0,
+    "hp": 100,
     "missPenalty": 10,
     "modifiers": [],
     "speed": 8,
@@ -24,7 +25,7 @@
         "hitbox_size_in_pixels": 25,
         "is_flip": false,
         "moving_rate": 1.0,
-        "reward": 15,
+        "reward": 20,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
         "vanishing_rate": 0.0
@@ -34,7 +35,7 @@
         "hitbox_size_in_pixels": 25,
         "is_flip": false,
         "moving_rate": 1.0,
-        "reward": 20,
+        "reward": 25,
         "sweet_spot_type": "starcatcher:normal",
         "texture_path": "starcatcher:textures/gui/minigame/spots/normal.png",
         "vanishing_rate": 0.0
@@ -47,28 +48,31 @@
     "average_size_cm": 15.0,
     "average_weight_grams": 150.0,
     "deviation_size_cm": 5.0,
-    "deviation_weight_grams": 60.0
+    "deviation_weight_grams": 60.0,
+    "golden_chance": 0
   },
   "skips_minigame": false,
   "weather": "all",
-  "world_restrictions": {
-    "above_y": 50,
-    "below_y": 100,
-    "biomes": [],
-    "biomes_blacklist": [],
-    "biomes_blacklist_tags": [],
-    "biomes_tags": [
-      "starcatcher:is_river"
-    ],
-    "dimensions": [
-      "minecraft:overworld"
-    ],
-    "dimensions_blacklist": [],
-    "fluids": [
-      "minecraft:water"
-    ],
-    "seasons": [
-      "all"
-    ]
-  }
+  "restrictions": [
+    {
+      "type": "starcatcher:dimension",
+      "dimensions": [
+        "minecraft:overworld"
+      ],
+      "dimensions_blacklist": []
+    },
+    {
+      "type": "starcatcher:biome",
+      "biomes": [],
+      "biomes_blacklist": [],
+      "biomes_blacklist_tags": [],
+      "biomes_tags": ["starcatcher:is_river"]
+    },
+    {
+      "type": "starcatcher:elevation_restriction",
+      "max_y": 100,
+      "min_y": 50,
+      "translation_override": "gui.guide.elevation.surface"
+    }
+  ]
 }

@@ -18,6 +18,6 @@
   "goldfish.configuration.Goldfish chance modifier when fishing": "Goldfish chance modifier when fishing",
   "goldfish.configuration.Max level of luck effect": "Max level of luck effect",
   "goldfish.configuration.Luck effect duration": "Luck effect duration",
-  "goldfish.configuration.Max level of luck effect3": "Max level of luck effect",
-  "goldfish.configuration.Max level of luck effect4": "Max level of luck effect"
+  "goldfish.configuration.Drop extra gems from ore blocks": "Drop extra gems from ore blocks",
+  "goldfish.configuration.Drop extra loot from mobs": "Drop extra loot from mobs"
 }

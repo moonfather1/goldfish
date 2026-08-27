@@ -30,7 +30,8 @@ displayName="${mod_name}" #mandatory
 displayURL="https://curseforge.com/minecraft/mc-mods/goldfish-myth" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="assets/goldfish/icon.png" #optional
+logoFile="assets/goldfish/icon.png"
+iconFile="assets/goldfish/icon.png"
 
 # A text field displayed in the mod UI
 credits="The Revolution icon set by Fabzy" #optional

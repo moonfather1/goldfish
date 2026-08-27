@@ -10,5 +10,15 @@
           "tooltip.starcatcher.goldfish_raw.1" : "срећу, мада детаљи нису јасни.",
 
 	"journal.description.goldfish.goldfish": "Лепа рибица. Легенде кажу да доноси срећу, мада детаљи нису јасни.",
-	"journal.info.location.cherry_grove_or_rivers": "Cherry grove or rivers"
+	"journal.info.location.cherry_grove_or_rivers": "Cherry grove or rivers",
+
+
+  "goldfish.configuration.title": "Goldfish mod config",
+  "goldfish.configuration.section.goldfish.common.toml": "Goldfish mod config",
+  "goldfish.configuration.section.goldfish.common.toml.title": "Configure the mod:",
+  "goldfish.configuration.Goldfish chance modifier when fishing": "Goldfish chance modifier when fishing",
+  "goldfish.configuration.Max level of luck effect": "Max level of luck effect",
+  "goldfish.configuration.Luck effect duration": "Luck effect duration",
+  "goldfish.configuration.Drop extra gems from ore blocks": "Drop extra gems from ore blocks",
+  "goldfish.configuration.Drop extra loot from mobs": "Drop extra loot from mobs"
 }
